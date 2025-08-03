@@ -1,6 +1,4 @@
 ﻿using LogicSolver.Core;
-using System.Data;
-using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 
 namespace LogicSolver.Parser;

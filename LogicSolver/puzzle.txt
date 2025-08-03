@@ -1,0 +1,35 @@
+# Acertijo de las Casas - Versión Simplificada
+# Hay 3 casas de diferentes colores, cada una habitada por una persona de diferente nacionalidad
+
+# Hechos iniciales sobre las casas
+hecho: (casa, numero, 1)
+hecho: (casa, numero, 2)
+hecho: (casa, numero, 3)
+
+# Colores disponibles
+hecho: (color, disponible, rojo)
+hecho: (color, disponible, azul)
+hecho: (color, disponible, verde)
+
+# Nacionalidades disponibles
+hecho: (nacionalidad, disponible, ingles)
+hecho: (nacionalidad, disponible, español)
+hecho: (nacionalidad, disponible, noruego)
+
+# Reglas del acertijo (CORREGIDAS)
+regla: (vive_en, X, casa_roja) -> (es, X, ingles)
+regla: (es, X, español) -> (vive_en, X, casa_azul)
+# REGLA CORREGIDA: Conecta la vivienda con la posición de la casa
+regla: (vive_en, X, Y) AND (casa, posicion, Y, 1) -> (es, X, noruego)
+
+
+# Restricciones adicionales
+hecho: (vive_en, juan, casa_roja)
+hecho: (casa, color, casa_roja, rojo)
+hecho: (casa, color, casa_azul, azul)
+hecho: (casa, color, casa_verde, verde)
+
+# Especificar qué casa está en qué posición
+hecho: (casa, posicion, casa_roja, 2)
+hecho: (casa, posicion, casa_azul, 3)
+hecho: (casa, posicion, casa_verde, 1)
