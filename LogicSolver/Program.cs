@@ -32,10 +32,9 @@ class Program
             Console.WriteLine($"✓ Reglas: {knowledgeBase.Rules.Count}");
             Console.WriteLine();
 
-            // *** AGREGAR ESTAS LÍNEAS DE DEBUG AQUÍ ***
             Console.WriteLine("📊 INFORMACIÓN DE DEBUG:");
             Console.WriteLine("Hechos cargados:");
-            foreach (var fact in knowledgeBase.Facts)
+            foreach (var fact in knowledgeBase.Facts.OrderBy(f => f.ToString()))
             {
                 Console.WriteLine($"  - {fact}");
             }
@@ -46,7 +45,9 @@ class Program
                 Console.WriteLine($"  - {rule}");
             }
             Console.WriteLine();
-            // *** FIN DE LAS LÍNEAS DE DEBUG ***
+
+            // Guardamos una copia de los hechos iniciales para comparar después
+            var initialFacts = new HashSet<Fact>(knowledgeBase.Facts);
 
             // Ejecutar el motor de inferencia
             var inferenceEngine = new InferenceEngine(knowledgeBase);
@@ -56,7 +57,8 @@ class Program
             {
                 Console.WriteLine("🎉 SOLUCIÓN ENCONTRADA:");
                 Console.WriteLine();
-                DisplaySolution(solution);
+                // Pasamos los hechos iniciales para una mejor visualización
+                DisplaySolution(solution, initialFacts);
             }
             else
             {
@@ -69,15 +71,35 @@ class Program
         }
     }
 
-    private static void DisplaySolution(Solution solution)
+    /// <summary>
+    /// Muestra la solución, distinguiendo entre hechos inferidos y hechos totales.
+    /// </summary>
+    private static void DisplaySolution(Solution solution, HashSet<Fact> initialFacts)
     {
-        foreach (var fact in solution.Facts.OrderBy(f => f.ToString()))
+        // Calculamos los hechos que son nuevos
+        var inferredFacts = solution.Facts.Except(initialFacts).ToList();
+
+        Console.WriteLine("--- Hechos Inferidos ---");
+        if (inferredFacts.Any())
         {
-            Console.WriteLine($"  {fact}");
+            foreach (var fact in inferredFacts.OrderBy(f => f.ToString()))
+            {
+                Console.WriteLine($"  ✓ {fact}");
+            }
+        }
+        else
+        {
+            Console.WriteLine("  (Ninguno)");
         }
 
         Console.WriteLine();
-        Console.WriteLine($"Hechos totales en la solución: {solution.Facts.Count}");
-        Console.WriteLine($"Pasos de inferencia: {solution.InferenceSteps}");
+        Console.WriteLine("--- Conjunto Completo de Hechos Finales ---");
+        foreach (var fact in solution.Facts.OrderBy(f => f.ToString()))
+        {
+            Console.WriteLine($"  - {fact}");
+        }
+
+        Console.WriteLine();
+        Console.WriteLine($"Total de nuevos hechos deducidos: {solution.InferenceSteps}");
     }
 }

@@ -1,0 +1,30 @@
+# Acertijo de las Mascotas
+# Hay 3 personas, cada una con una mascota diferente y una bebida favorita distinta.
+
+# Personas
+hecho: (persona, disponible, ana)
+hecho: (persona, disponible, luis)
+hecho: (persona, disponible, maria)
+
+# Mascotas
+hecho: (mascota, disponible, perro)
+hecho: (mascota, disponible, gato)
+hecho: (mascota, disponible, pajaro)
+
+# Bebidas
+hecho: (bebida, disponible, cafe)
+hecho: (bebida, disponible, te)
+hecho: (bebida, disponible, leche)
+
+# Pistas y reglas del acertijo
+# Pista 1: Ana tiene un pájaro.
+hecho: (dueño, ana, pajaro)
+
+# Pista 2: Luis bebe café.
+hecho: (bebe, luis, cafe)
+
+# Regla 1: La persona que tiene el perro, bebe café.
+regla: (dueño, X, perro) -> (bebe, X, cafe)
+
+# Regla 2: El dueño del gato bebe té.
+regla: (dueño, X, gato) -> (bebe, X, te)
