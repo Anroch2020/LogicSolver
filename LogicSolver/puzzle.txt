@@ -15,6 +15,8 @@ hecho: (color, disponible, verde)
 hecho: (nacionalidad, disponible, ingles)
 hecho: (nacionalidad, disponible, español)
 hecho: (nacionalidad, disponible, noruego)
+hecho: (persona, disponible, sven)
+
 
 # Reglas del acertijo (CORREGIDAS)
 regla: (vive_en, X, casa_roja) -> (es, X, ingles)
@@ -28,6 +30,8 @@ hecho: (vive_en, juan, casa_roja)
 hecho: (casa, color, casa_roja, rojo)
 hecho: (casa, color, casa_azul, azul)
 hecho: (casa, color, casa_verde, verde)
+hecho: (vive_en, sven, casa_verde)
+
 
 # Especificar qué casa está en qué posición
 hecho: (casa, posicion, casa_roja, 2)
